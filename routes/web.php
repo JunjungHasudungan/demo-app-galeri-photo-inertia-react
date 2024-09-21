@@ -2,7 +2,8 @@
 
 // CONTROLLER FOR ADMIN
 use App\Http\Controllers\Admin\{
-    DashboardController as AdminDashboardController
+    DashboardController as AdminDashboardController,
+    GaleriPhotoController,
 };
 
 // CONTROLLER FOR USER
@@ -32,6 +33,8 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified'])->group(function(){
     // ROUTE FOR ADMIN
     Route::get('admin-dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
+    Route::resource('gallery', GaleriPhotoController::class)
+    ->only(['index', 'store', 'update', 'destroy']);
 
     // ROUTE FOR USER
     Route::get('user-dashboard', [UserDashboardController::class, 'index'])->name('user-dashboard');
